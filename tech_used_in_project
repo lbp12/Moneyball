@@ -1,0 +1,16 @@
+The purpose of this text file is to determine and list which technologies, packages,ibraries, etc. that will be used during this project.
+
+
+Language: Python, SQL (TBD)
+
+Interpreter: Jupyter Notebook
+
+Packages: from pybaseball import batting_stats_range
+          from sklearn import (TBD)
+
+Libraries: import pandas as pd
+            
+
+Database: either PostgreSQL or AWS (TBD)
+
+Machine Learning Model: TBD
