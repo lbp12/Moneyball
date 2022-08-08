@@ -6,9 +6,12 @@ Language: Python, SQL (TBD)
 Interpreter: Jupyter Notebook
 
 Packages: from pybaseball import batting_stats_range
+          from pybaseball import batting_stats
+          from pathlib import Path
           from sklearn import (TBD)
 
-Libraries: import pandas as pd
+Libraries: import numpy as np
+           import pandas as pd
             
 
 Database: either PostgreSQL or AWS (TBD)
