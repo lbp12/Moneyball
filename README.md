@@ -44,4 +44,3 @@ Our model's accuracy is 97%
 - How does this model work?
 Logistic Regression is used to predict binary outcomes. In other words, is a player going to be MVP or not?
 
-	
