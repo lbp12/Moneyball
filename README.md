@@ -40,8 +40,8 @@ We currently have selected the Logistic Regression Model because we are looking 
 - How are you training your model?
 We are using the train test split package from sklearn
 - What is the model's accuracy?
-Our model's accuracy is
+Our model's accuracy is 97%
 - How does this model work?
-
+Logistic Regression is used to predict binary outcomes. In other words, is a player going to be MVP or not?
 
 	
