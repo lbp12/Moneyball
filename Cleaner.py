@@ -1,6 +1,7 @@
 from pybaseball import bwar_bat
 from pybaseball import team_ids
 from pybaseball import batting_stats
+from pybaseball import playerid_lookup
 from pybaseball import playerid_reverse_lookup
 from sqlalchemy import create_engine
 import pandas as pd 
@@ -15,9 +16,15 @@ def reverseLookup(mvp_awards): # Player Names based on bbref id
     player_names = playerid_reverse_lookup(mvp_awards['playerID'], key_type='bbref') # PyBaseball Function 
     player_names['Name'] = player_names['name_first'].map( # Create the Name Column
     lambda x: x.title()) + ' ' + player_names['name_last'].map(lambda x: x.title()) # Append first and last name
-    player_names = player_names[['Name', 'key_bbref','mlb_played_first', 'mlb_played_last']] # Select columns
+    id_list = []
+    for i in range(len(player_names['name_first'])):
+        id_list.append(playerid_lookup(player_names['name_first'][i], player_names['name_last'][i]))
+    player_names['IDfg'] = id_list
 
-    return player_names.merge(mvp_awards, left_on= 'key_bbref', right_on='playerID').drop(['key_bbref'], axis=1)
+    
+    player_names = player_names[['key_fangraphs','Name', 'key_bbref']] # Select columns
+    return player_names.merge(mvp_awards, left_on= 'key_bbref', right_on='playerID'
+                             ).drop(['key_bbref','tie','notes'], axis=1)
           
    
 
@@ -55,23 +62,22 @@ def getStats(current_year, all_awards): # Years Stats
 
 def mergeAwards(all_awards, current_year): # Find Awarded Players
     Players_Stats = batting_stats(str(current_year)).merge( # Pybaseball Scrapping Function
-        all_awards.loc[all_awards['yearID'] == current_year]
-                                                , how= 'left', left_on=['Name'], right_on=['Name']
+        all_awards.loc[all_awards['yearID'] == current_year].drop(['Name'], axis=1)
+                                                , how= 'left', left_on=['IDfg'], right_on=['key_fangraphs']
     )
     Players_Stats['awardID'] = Players_Stats['awardID'].fillna('No Award') # Fill no award category
     teams_ids = team_ids(current_year)
-    if current_year == 2021:
+    if current_year == 2021: # Team names do not exist past 2020, replace with 2020
         teams_ids = team_ids(2020)
-    AL_teams = teams_ids.loc[teams_ids['lgID']=='AL']
-    NL_teams = teams_ids.loc[teams_ids['lgID']=='NL']
-    teams_ids = {'Names':list(AL_teams['teamIDBR'])+list(NL_teams['teamIDBR']), 
-                 'League':list(AL_teams['lgID'])+list(NL_teams['lgID'])}
+        
+    Teams = {'- - -':'ML'} # Start Hashing
+    for i in range(len(teams_ids['teamIDBR'])): # Loop over seasons teams add to Hashmap
+        Teams[list(teams_ids['teamIDBR'])[i]] = str(list(teams_ids['lgID'])[i])
 
     for i in range(len(Players_Stats)): # Loop over dataframe entries
         if list(Players_Stats['lgID'])[i] != 'AL' and list(Players_Stats['lgID'])[i] != 'NL': # If League not Clean
-            for j in range(len(teams_ids['Names'])): # Loop over season teams
-                if teams_ids['Names'][j] == list(Players_Stats['Team'])[i]: # If teams are the same
-                    Players_Stats['lgID'][i] = teams_ids['League'][j] # Correct league  
+            Players_Stats['lgID'][i] = Teams[list(Players_Stats['Team'])[i]] # Get Hashmaps value
+       
         
     return Players_Stats.loc[Players_Stats['Team'] != '- - -'] # Return the cleaned data
 
