@@ -1,1 +1,1 @@
-db_password = 'Lastsong2010'
+db_password = ''
