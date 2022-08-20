@@ -1,1 +1,1 @@
-db_password = 'Enter Password'
+db_password = ''
