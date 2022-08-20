@@ -20,6 +20,7 @@ def reverseLookup(mvp_awards): # Player Names based on bbref id
     return player_names.merge(mvp_awards, left_on= 'key_bbref', right_on='playerID').drop(['key_bbref'], axis=1)
           
    
+
                                                                                           
                                                                                           
 def Merger(all_awards): # Preprocess MVP for Machine learning
@@ -29,23 +30,24 @@ def Merger(all_awards): # Preprocess MVP for Machine learning
 
     for i in range(end_year - start_year +1): # Loop through each Year
         current_year, year_time = start_year + i, time.time() # Define Current Year variable   
-        if current_year == 2020: # Add 2021 stats to COVID year, less games affected recorded stats
-            current_year = current_year + 1
 
         if i < 1: # Base Case: at the start_year 
             data = getStats(current_year, all_awards) # Years Stats
+            
             print(str(current_year)+' Time: '+str(time.time() - year_time)+' Seconds')
             
         else:
             new_data = getStats(current_year, all_awards) # Years Stats
             data = pd.concat([data, new_data]) # Combine old and new stats 
-            print(str(current_year)+' Time: '+str(
-                time.time() - year_time)+' Seconds') if (i < 5) else print(
-                '\n.......Approximately '+str(int(
-                    (end_year - start_year +1)*(time.time() - year_time)*1.25))+' Seconds.......\n') if (i==5) else False
-
+            
+            complete_time = time.time() - year_time
+            print(str(current_year)+' Time: '+str(complete_time)+' Seconds') if (i < 5) else print(
+                '\n.....Approximately '+str(int((end_year - start_year +1)*(complete_time))
+                                             )+'-'+str(int((end_year - start_year +1)*(complete_time)*1.25)
+                                                  )+' Seconds.....\n') if (i==5) else False
+    data = data.loc[data['Season']!=2020] # Drop Covid Season, Skewed Stats will affect Machine Learning
     print('Total Time: '+str(time.time() - start_time)+' Seconds')
-    return data
+    return data.loc[data['lgID']=='NL'], data.loc[data['lgID']=='AL']
 
 def getStats(current_year, all_awards): # Years Stats
     data = mergeAwards(all_awards, current_year) # Get All Players and Awards
@@ -71,7 +73,7 @@ def mergeAwards(all_awards, current_year): # Find Awarded Players
                 if teams_ids['Names'][j] == list(Players_Stats['Team'])[i]: # If teams are the same
                     Players_Stats['lgID'][i] = teams_ids['League'][j] # Correct league  
         
-    return Players_Stats # Return the cleaned data
+    return Players_Stats.loc[Players_Stats['Team'] != '- - -'] # Return the cleaned data
 
 def mvpChecker(data, current_year): # Find Players Awarded MVP
     mvp_list = list(data.loc[
@@ -88,10 +90,12 @@ def categorizer(mvp_list, player): # Assign 1 or 0 if MVP
             
             
             
+            
         
                                                                                           
 def mvpVerify(data): # Filter Data Frame To Check Work 
     mvp_check = data.loc[data['MVP'] == 1] 
-    print('There are/is '+str(mvp_check['Name'].nunique())+' unique mvps') # Print Unique Count
+    print('There are/is '+str(mvp_check['Name'].nunique())+' unique mvps over '+
+         str(mvp_check['Season'].nunique())+' Seasons') # Print Unique Count
     print(mvp_check['Name'].unique()) # Print Unique Names
     return mvp_check
