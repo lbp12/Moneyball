@@ -44,3 +44,12 @@ Our model's accuracy is 97%
 - How does this model work?
 Logistic Regression is used to predict binary outcomes. In other words, is a player going to be MVP or not?
 
+### Data Exploration
+- Pulled batting stats and award stats from 1982-2022
+- Excluded season 1984, 1986, 1992, 2011, 2014 and 2020
+- Pulled data into two separate dataframes - American League & National League
+
+### Data Analysis
+- Created a new metric - XBH+
+- Added additional metrics into analysis
+
