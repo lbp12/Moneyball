@@ -1,3 +1,9 @@
+# Ignore the following files 
+machine_learning_model (exploration).ipynb
+pybaseball (exploration).ipynb
+batting_df (exploration).csv
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
