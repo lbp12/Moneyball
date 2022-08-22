@@ -16,6 +16,7 @@ def reverseLookup(mvp_awards): # Player Names based on bbref id
     player_names = playerid_reverse_lookup(mvp_awards['playerID'], key_type='bbref') # PyBaseball Function 
     player_names['Name'] = player_names['name_first'].map( # Create the Name Column
     lambda x: x.title()) + ' ' + player_names['name_last'].map(lambda x: x.title()) # Append first and last name
+            
     id_list = []
     for i in range(len(player_names['name_first'])):
         id_list.append(playerid_lookup(player_names['name_first'][i], player_names['name_last'][i]))
@@ -84,7 +85,7 @@ def mvpChecker(data, current_year): # Find Players Awarded MVP
 def categorizer(mvp_list, player): # Assign 1 or 0 if MVP
         if (player in mvp_list):
             return 1
-        else:
+        else:                                                                       
             return 0
         
 def printStatement(start_year, end_year, year_time, i): # Lets user know Approximate time
@@ -105,7 +106,7 @@ def finalProcessing(data, start_time):
             
             
             
-            
+     
                                                                                           
 def mvpVerify(data, all_awards, leagueType): # Filter Data Frame To Check Work 
     new = all_awards.loc[(all_awards['awardID']=='Most Valuable Player') &
