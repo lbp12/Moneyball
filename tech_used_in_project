@@ -1,19 +1,22 @@
 The purpose of this text file is to determine and list which technologies, packages,ibraries, etc. that will be used during this project.
 
+Language: Python, SQL (PostGres)
 
-Language: Python, SQL (TBD)
+Interpreter: Jupyter Notebook, Visual Studio Code
 
-Interpreter: Jupyter Notebook
-
-Packages: from pybaseball import batting_stats_range
+Packages: from pybaseball import bwar_bat
+          from pybaseball import team_ids
           from pybaseball import batting_stats
-          from pathlib import Path
-          from sklearn import (TBD)
+          from pybaseball import playerid_reverse_lookup
+          from sqlalchemy import create_engine
 
-Libraries: import numpy as np
-           import pandas as pd
+Libraries: import pandas as pd 
+           import warnings
+           import psycopg2
+           import time
+
             
 
-Database: either PostgreSQL or AWS (TBD)
+Database: PostgreSQL 
 
 Machine Learning Model: TBD
