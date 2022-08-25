@@ -67,10 +67,15 @@ def mergeAwards(all_awards, current_year): # Find Awarded Players
     for i in range(len(teams_ids['teamIDBR'])): # Loop over seasons teams add to Hashmap
         Teams[list(teams_ids['teamIDBR'])[i]] = str(list(teams_ids['lgID'])[i])
 
+    custom_stat = []
     for i in range(len(Players_Stats)): # Loop over dataframe entries
         if list(Players_Stats['lgID'])[i] != 'AL' and list(Players_Stats['lgID'])[i] != 'NL': # If League not Clean
             Players_Stats['lgID'][i] = Teams[list(Players_Stats['Team'])[i]] # Get Hashmaps value
-        
+        # ((R+2B+3B+HR)-(SO))/PA = XBH+
+        custom_stat.append(((list(Players_Stats['R'])[i]+list(Players_Stats['2B'])[i]+list(
+            Players_Stats['3B'])[i]+list(Players_Stats['HR'])[i])-list(
+                Players_Stats['SO'])[i])/list(Players_Stats['PA'])[i])
+    Players_Stats['XBH+'] = custom_stat
     return Players_Stats.loc[Players_Stats['Team'] != '- - -'] # Return the cleaned data
 
 def mvpChecker(data, current_year): # Find Players Awarded MVP
