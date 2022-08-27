@@ -2,7 +2,7 @@
 
 SELECT *
 INTO all_league
-FROM american_league
+FROM "AL"
 UNION ALL
-SELECT * FROM national_league
+SELECT * FROM "NL"
 ORDER BY "Season"
