@@ -1,4 +1,10 @@
 @import "rsuite/dist/rsuite.css";
+@font-face {
+	font-family: "Courier New";
+	src: local("Courier New"),
+	 url("Fonts/cour.ttf") format("truetype");
+}
+
 body {
 	display: flex;
 	justify-content: center;
@@ -6,29 +12,72 @@ body {
 	background: rgb(135,199,179);
 	background: linear-gradient(180deg, rgba(135,199,179,1) 0%, rgba(181,169,147,1) 73%);
 }
-h1 {
-	font-family:'Courier New, monospace';
-	font-size: 30px;
-	color: 'white';
+body > * {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family:'Courier New';
+	font-size: 21px;
+}
+fieldset {
+	margin-left: 25px;
+	border-color:#F5F5DC;
+}
+fieldset > * {
+	font-weight: bold;
+	color:#F5F5DC;
+}
+fieldset > label {
+	margin-left: 11px;
+}
+.mvp-winners {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 60px;
+
+}
+.dashboard-description {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
 }
 .title {
 	display:flex;
 	justify-content: center;
 	align-items: center;	
+	margin-top: 25px;
+	margin-bottom: 12px;
+}
+.mvp-winners > * {
+	color:#F5F5DC;
+	font-weight: normal;
+	margin-left: 87px;
+}
+.dashboard-description > * {
+	color:#F5F5DC;
+}
+.title > h1 {
+	color:#F5F5DC;
 }
 .silder-component {
 	display: flex;
 	flex: wrap;
 	align-items: center;
 	justify-content: center;	
-	margin-top: 100px;
 	margin-bottom: 30px;
+}
+.silder-component > * {
+	color:#F5F5DC;
 }
 .slider {
 	margin-left: 15px;
-	width: 50%;
+	width: 42%;
 }
-.WAR-plot {
+.xbh {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -36,7 +85,13 @@ h1 {
 	height: 1000;
 	margin-top: 5px;
 	margin-bottom: 100px;
-
+}
+.WAR-plot {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 1000;
 }
 .mvp-plot {
 	display: flex;
@@ -44,6 +99,4 @@ h1 {
 	align-items: center;
 	width: 100%;
 	height: 1000;
-	margin-top: 60px;
 }
-

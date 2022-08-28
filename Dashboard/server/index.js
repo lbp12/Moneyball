@@ -7,9 +7,15 @@ app.use(cors());
 app.use(express.json());
 
 // Get Raw Stats
-app.get('*', async(req, res) => {
+app.get('/', async(req, res) => {
 	try{
-		const BaseballData = await pool.query('SELECT * FROM public."AL"UNION ALL SELECT * FROM public."NL"');
+		const BaseballData = await pool.query(`
+			SELECT "Name", "Season","H","1B","2B","3B","HR","R","RBI","MVP", 
+				"wSB","wRAA","wRC","wRC+","XBH+","WAR","lgID" FROM public."ALLSTATS"
+		 			UNION ALL 
+		  			SELECT "Name", "Season", "H","1B","2B","3B","HR","R","RBI","MVP", 
+						"wSB","wRAA","wRC","wRC+","XBH+","WAR","lgID" FROM public."ALLMVPS";
+		`);
 		res.json(BaseballData.rows);
 	} catch (err) {
 		console.error(err.message);
