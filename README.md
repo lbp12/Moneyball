@@ -57,6 +57,10 @@ Logistic Regression is used to predict binary outcomes. In other words, is a pla
 View our storyboard below:<br>
 https://docs.google.com/presentation/d/1IHzRlhsstyT3hoKUVuXkOjxD-A0PplcPukq9Qvsl9BU/edit?usp=sharing
 
+
+https://user-images.githubusercontent.com/79609464/187344482-e6594780-05cd-4405-a422-588b2ecd3498.mov
+
+
 ### Final Presentation
 View our final presentation:<br>
 https://docs.google.com/presentation/d/1XskK5MMPLX6G7jf0J1knfi2zl5QrayQTjjjfoeoP_kA/edit?usp=sharing
